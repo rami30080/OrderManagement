@@ -1,6 +1,7 @@
+import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import { render } from '../../api/app';
+
 
 class App extends React.Component{
   constructor(props){
@@ -10,17 +11,17 @@ class App extends React.Component{
 
   callAPI(){
     fetch("http://localhost:9000/testAPI")
-    .then(res=>res.next())
-    .then(res=>this.setState({apiResponse:res}));
+      .then( res => res.text())
+      .then(res=>this.setState({apiResponse: res}));
   }
 
-  ComponentWillMount(){
+  componentWillMount(){
     this.callAPI();
   }
-}
 
-function App() {
-  render (
+
+  render (){
+    return(
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
@@ -29,6 +30,7 @@ function App() {
       <p>{this.state.apiResponse}</p>
     </div>
   );
+  }
 }
 
 export default App;
